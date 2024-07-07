@@ -9,11 +9,11 @@ import { User } from "@/types";
 import { generateEmailBody, sendEmail } from "../nodemailer";
 
 export async function scrapeAndStoreProduct(productUrl: string) {
-  if (!productUrl) return;
+  if (!productUrl) return null; // Return null if the URL is not provided
   try {
     connectToDB();
     const scrapedProduct = await scrapeAmazonProduct(productUrl);
-    if (!scrapedProduct) return;
+    if (!scrapedProduct) return null; // Return null if scraping failed
     let product = scrapedProduct;
     const existingProduct = await Product.findOne({ url: scrapedProduct.url });
     if (existingProduct) {
@@ -35,10 +35,12 @@ export async function scrapeAndStoreProduct(productUrl: string) {
       { upsert: true, new: true }
     );
     revalidatePath(`/products/${newProduct._id}`);
+    // return newProduct._id; // Return the new or updated product
   } catch (error: any) {
     throw new Error(`Failed to create/update product: ${error.message}`);
   }
 }
+
 
 export async function getProductById(productId: string) {
   try {

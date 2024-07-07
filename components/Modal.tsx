@@ -1,7 +1,11 @@
 "use client";
-
-import { FormEvent, Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import {
+  Description,
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+} from "@headlessui/react";
+import { FormEvent, useState } from "react";
 import Image from "next/image";
 import { addUserEmailToProduct } from "@/lib/actions";
 
@@ -9,24 +13,21 @@ interface Props {
   productId: string;
 }
 
-const Modal = ({ productId }: Props) => {
-  let [isOpen, setIsOpen] = useState(true);
+export default function Modal({ productId }: Props) {
+  let [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     await addUserEmailToProduct(productId, email);
-
     setIsSubmitting(false);
     setEmail("");
     closeModal();
   };
 
   const openModal = () => setIsOpen(true);
-
   const closeModal = () => setIsOpen(false);
 
   return (
@@ -34,36 +35,21 @@ const Modal = ({ productId }: Props) => {
       <button type="button" className="btn" onClick={openModal}>
         Track
       </button>
-
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" onClose={closeModal} className="dialog-container">
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              {/* <Dialog.Overlay className="fixed inset-0" /> */}
-            </Transition.Child>
-
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            />
-
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="relative z-50"
+      >
+        <DialogBackdrop
+          transition
+          className="fixed inset-0 bg-black/30 duration-300 ease-out data-[closed]:opacity-0"
+        />
+        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+          <DialogPanel
+            transition
+            className="duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+          >
+            <Description>
               <div className="dialog-content">
                 <div className="flex flex-col">
                   <div className="flex justify-between">
@@ -127,12 +113,10 @@ const Modal = ({ productId }: Props) => {
                   </button>
                 </form>
               </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
+            </Description>
+          </DialogPanel>
+        </div>
+      </Dialog>
     </>
   );
-};
-
-export default Modal;
+}

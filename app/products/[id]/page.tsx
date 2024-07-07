@@ -1,10 +1,7 @@
-// import Modal from "@/components/Modal";
+import Modal from "@/components/Modal";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import ProductCard from "@/components/ProductCard";
-import {
-  getProductById,
-  getSimilarProducts
-} from "@/lib/actions";
+import { getProductById, getSimilarProducts } from "@/lib/actions";
 import { formatNumber } from "@/lib/utils";
 import { Product } from "@/types";
 import Image from "next/image";
@@ -17,11 +14,9 @@ type Props = {
 
 const ProductDetails = async ({ params: { id } }: Props) => {
   const product: Product = await getProductById(id);
-  const similarProducts = await getSimilarProducts(id);
-
   if (!product) redirect("/");
 
-  //   const similarProducts = await getSimilarProducts(id);
+  const similarProducts = await getSimilarProducts(id);
 
   return (
     <div className="product-container">
@@ -163,7 +158,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             </div>
           </div>
 
-          {/* <Modal productId={id} /> */}
+          <Modal productId={id} />
         </div>
       </div>
 
