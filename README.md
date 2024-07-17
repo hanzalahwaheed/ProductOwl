@@ -2,4 +2,5 @@
 ## Tools Used
 - NextJS
 - BrightData
-.env
+- TailWind
+
