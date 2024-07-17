@@ -24,7 +24,7 @@ const Navbar = () => {
           Product<span className="text-primary">Owl</span>
         </p>
 
-        <div className="flex items-center gap-5">
+        {/* <div className="flex items-center gap-5">
           {navIcons.map((icon) => (
             <Image
               key={icon.alt}
@@ -35,7 +35,7 @@ const Navbar = () => {
               className="object-contain"
             />
           ))}
-        </div>
+        </div> */}
       </nav>
     </header>
   );
