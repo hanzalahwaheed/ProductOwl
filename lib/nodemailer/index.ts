@@ -79,16 +79,29 @@ export async function generateEmailBody(
   return { subject, body };
 }
 
+// const transporter = nodemailer.createTransport({
+//   pool: true,
+//   service: "gmail",
+//   port: 465,
+//   secure: true,
+//   auth: {
+//     user: process.env.GOOGLE_EMAIL,
+//     pass: process.env.GOOGLE_APP_PASSWORD,
+//   },
+//   maxConnections: 1,
+// });
+
 const transporter = nodemailer.createTransport({
-  pool: true,
-  service: "gmail",
-  port: 465,
-  secure: true,
+  host: "smtp-mail.outlook.com",
+  port: 587,
+  secure: false, // STARTTLS requires false
   auth: {
-    user: process.env.GOOGLE_EMAIL,
-    pass: process.env.GOOGLE_APP_PASSWORD,
+    user: process.env.OUTLOOK_EMAIL,
+    pass: process.env.OUTLOOK_PASSWORD,
   },
-  maxConnections: 1,
+  tls: {
+    ciphers: "SSLv3", // Adjust according to Outlook's TLS requirements if necessary
+  },
 });
 
 export const sendEmail = async (
@@ -96,13 +109,18 @@ export const sendEmail = async (
   sendTo: string[]
 ) => {
   const mailOptions = {
-    from: process.env.GOOGLE_EMAIL,
+    from: process.env.OUTLOOK_EMAIL,
     to: sendTo,
     html: emailContent.body,
     subject: emailContent.subject,
   };
-  transporter.sendMail(mailOptions, (error: any, info: any) => {
-    if (error) return console.log(error);
-    console.log("Email sent: ", info);
-  });
+
+  try {
+    console.log("Sending email with the following options:", mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent:", info.response);
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw new Error("Failed to send email.");
+  }
 };
