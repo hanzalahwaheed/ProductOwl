@@ -69,6 +69,7 @@
     @apply flex-grow xl:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px];
   }
 
+
   .product-info {
     @apply flex items-center flex-wrap gap-10 py-6 border-y border-y-[#E4E4E4];
   }

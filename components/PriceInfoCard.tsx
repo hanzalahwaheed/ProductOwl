@@ -17,7 +17,7 @@ const PriceInfoCard = ({ title, iconSrc, value }: Props) => {
         <p className="text-2xl font-bold text-secondary">{value}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PriceInfoCard;
+export default PriceInfoCard
