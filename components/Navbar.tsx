@@ -13,7 +13,7 @@ const Navbar = () => {
             alt="logo"
           /> */}
           <p className="nav-logo">
-            Product<span className="text-primary">Hunt</span>
+            Product<span className="text-primary">Owl</span>
           </p>
         </Link>
       </nav>

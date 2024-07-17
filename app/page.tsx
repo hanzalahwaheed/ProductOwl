@@ -10,10 +10,10 @@ const Home = async () => {
     <>
       <section className="px-6 md:px-20 py-24">
         <div className="flex flex-col justify-center">
-          <p className="mt-6">
+          <h1 className="head-text">
             Track Your Amazon Products with{" "}
             <span className="text-primary"> ProductOwl</span>
-          </p>
+          </h1>
           <Searchbar />
         </div>
       </section>
