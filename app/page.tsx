@@ -17,7 +17,7 @@ const Home = async () => {
               with <span className="text-primary">ProductOwl</span>
             </h1>
             <p className="mt-6">
-              Buy stuff and the cheapest rate possible with{" "}
+              Buy stuff at the cheapest rate possible with{" "}
               <span className="text-red-500">ProductOwl</span>!
             </p>
             <SearchBar />
