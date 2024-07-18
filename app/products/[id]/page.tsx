@@ -41,7 +41,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               <Link
                 href={product.url}
                 target="_blank"
-                className="text-base text-black opacity-50"
+                className="text-base text-[#DDA15E] opacity-50"
               >
                 Visit Product
               </Link>
@@ -54,7 +54,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               <p className="text-[34px] text-secondary font-bold">
                 {product.currency} {formatNumber(product.currentPrice)}
               </p>
-              <p className="text-[21px] text-black opacity-50 line-through">
+              <p className="text-[21px] text-[#DDA15E] opacity-50 line-through">
                 {product.currency} {formatNumber(product.originalPrice)}
               </p>
             </div>
@@ -95,7 +95,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             Product Description
           </h3>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 text-[#FEFAE0]">
             {product?.description?.split('\n')}
           </div>
         </div>
